@@ -2,14 +2,32 @@
   "name": "package-demo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wliu6v/package-test.git"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
-    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\""
+    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run prettier && npm run lint"
   },
   "keywords": [],
-  "author": "",
+  "author": "6v",
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^18.0.25",
